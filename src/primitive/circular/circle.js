@@ -7,10 +7,10 @@ export default class Circle extends HasRadius {
     }
 
     get Area(){
-        return radius * radius * Math.PI;
+        return this.Radius * this.Radius * Math.PI;
     }
 
     contains(point){
-        return Point2D.copy(super.CenterPoint).squareDistanceToPoint(point) <= raidus * radius;
+        return Point2D.copy(super.CenterPoint).squareDistanceToPoint(point) <= this.Radius * this.Radius;
     }
 }

@@ -27,13 +27,8 @@ export default class RoundRectangle extends Rectangle {
     }
 
     contains(point){
-        let outerVerticalSize = new Point2D(this.RoundRadius, this.Size.Y - this.RoundRadius * 2);
-        let outerHorizontalSize = new Point2D(this.Size.X - this.RoundRadius * 2, this.RoundRadius);
-
-        let topOuterRectangle = new Rectangle(super.Location.add(this.RoundRadius), outerHorizontalSize);
-        let bottomOuterRectangle = new Rectangle(super.Location.add(this.RoundRadius, this.Size.X - this.RoundRadius), outerHorizontalSize);
-        let leftOuterRectangle = new Rectangle(super.Location.add(0, this.RoundRadius), outerVerticalSize);
-        let rightOuterRectangle = new Rectangle(super.Location.add(this.Size.X - this.RoundRadius, this.RoundRadius), outerVerticalSize);
+        let verticalRectangle = new Rectangle(super.Location.add(this.RoundRadius), this.Size.subtract(this.RoundRadius * 2, 0));
+        let horizontalRectangle = new Rectangle(super.Location.add(0, this.RoundRadius), this.Size.subtract(0, this.RoundRadius * 2));
 
         let topLeftOuterCircle = new Circle(super.Location.add(this.RoundRadius, this.RoundRadius), this.RoundRadius);
         let topRightOuterCircle = new Circle(super.Location.add(this.Size.X - this.RoundRadius, this.RoundRadius), this.RoundRadius);
@@ -41,7 +36,7 @@ export default class RoundRectangle extends Rectangle {
         let bottomRightOuterCircle = new Circle(super.Location.add(this.Size.X - this.RoundRadius, this.Size.Y - this.RoundRadius), this.RoundRadius);
 
         return this.InnerRectangle.contains(point)
-         || topOuterRectangle.contains(point) || bottomOuterRectangle.contains(point) || leftOuterRectangle.contains(point) || rightOuterRectangle.contains(point)
+         || verticalRectangle.contains(point) || horizontalRectangle.contains(point)
          || topLeftOuterCircle.contains(point) || topRightOuterCircle.contains(point) || bottomLeftOuterCircle.contains(point) || bottomRightOuterCircle.contains(point);
     }
 }
