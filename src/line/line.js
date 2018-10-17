@@ -26,8 +26,6 @@ export default class Line {
         let startPoint = Point4D.copy(this.StartPoint);
         let endPoint = Point4D.copy(this.EndPoint);
 
-        let pointX = startPoint.X + (endPoint)
-
         return startPoint.add((endPoint.X - startPoint.X) * progress, (endPoint.Y - startPoint.Y) * progress, (endPoint.Z - startPoint.Z) * progress, (endPoint.W - startPoint.W) * progress);
     }
 }

@@ -58,7 +58,7 @@ export default class Point {
     }
 
     squareDistanceToPoint(point){
-        return this.squareDistanceTo(point.X, point.Y);
+        return this.squareDistanceTo(point.X);
     }
 
     static copy(point){
