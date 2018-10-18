@@ -6,7 +6,7 @@ export default class Tesseract extends Box {
         super(location, size);
     }
 
-    get Bulk(){
+    get HyperVolume(){
         return super.Area() * (this.Size.W || 0);
     }
 
