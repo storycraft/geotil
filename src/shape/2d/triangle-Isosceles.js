@@ -1,7 +1,7 @@
-import Primitive from "./primitive";
-import Triangle from "./triangle";
+import Primitive from "../../primitive/primitive";
+import Triangle from "../../primitive/triangle";
 import Rectangle from "./rectangle";
-import Point2D from "../point/point2D";
+import Point2D from "../../point/point2D";
 
 export default class TriangleIsosceles extends Primitive {
     constructor(location, size){

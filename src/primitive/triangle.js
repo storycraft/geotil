@@ -1,4 +1,5 @@
 import Primitive from "./primitive";
+import Point4D from "../point/point4D";
 
 export default class Triangle extends Primitive {
     constructor(point1, point2, point3){
@@ -22,9 +23,9 @@ export default class Triangle extends Primitive {
     }
 
     get Area(){
-        let a = this.Point1.distanceToPoint(this.Point2);
-        let b = this.Point2.distanceToPoint(this.Point3);
-        let c = this.Point3.distanceToPoint(this.Point1);
+        let a = Point4D.copy(this.Point1).distanceToPoint(this.Point2);
+        let b = Point4D.copy(this.Point2).distanceToPoint(this.Point3);
+        let c = Point4D.copy(this.Point3).distanceToPoint(this.Point1);
 
         let s = (a + b + c) / 2;
 

@@ -1,6 +1,6 @@
-import Primitive from "./primitive";
-import Quad from "./quad";
-import Point2D from "../point/point2D";
+import Primitive from "../../primitive/primitive";
+import Quad from "../../primitive/quad";
+import Point2D from "../../point/point2D";
 
 export default class Rectangle extends Primitive {
     constructor(location, size){
@@ -19,11 +19,15 @@ export default class Rectangle extends Primitive {
     }
 
     get Area(){
-        return Math.abs(this.Size.X * this.Size.Y);
+        return Math.abs((this.Size.X || 0) * (this.Size.Y || 0));
     }
 
     contains(point){
-        return point.X >= this.Location.X && point.Y >= this.Location.Y && point.X <= this.Location.X + this.Size.X && point.Y <= this.Location.Y + this.Size.Y;
+        point = Point2D.copy(point);
+        let location = Point2D.copy(this.Location);
+        let size = Point2D.copy(this.Size);
+
+        return point.X >= location.X && point.Y >= location.Y && point.X <= location.X + size.X && point.Y <= location.Y + size.Y;
     }
 
     toQuad(){
