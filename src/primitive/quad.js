@@ -28,10 +28,10 @@ export default class Quad extends Primitive {
     }
 
     get Area(){
-        return new Triangle(this.Point1, this.Point2, this.Point3).Area + new Triangle(this.Point2, this.Point3, this.Point4).Area;
+        return new Triangle(this.Point1, this.Point2, this.Point3).Area + new Triangle(this.Point3, this.Point4, this.Point1).Area;
     }
 
     contains(point){
-        return new Triangle(this.Point1, this.Point2, this.Point3).contains(point) || new Triangle(this.Point2, this.Point3, this.Point4).contains(point);
+        return new Triangle(this.Point1, this.Point2, this.Point3).contains(point) || new Triangle(this.Point3, this.Point4, this.Point1).contains(point);
     }
 }

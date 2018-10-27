@@ -17,7 +17,7 @@ import Point3D from "./point/point3D";
 import Point4D from "./point/point4D";
 import Line from "./line/line";
 
-export default {
+const structure = {
 
     'primitive': {
         'circular': {
@@ -69,3 +69,8 @@ export default {
         'Line': Line
     }
 }
+
+export default structure;
+
+if (window)
+    window.Geotil = structure;

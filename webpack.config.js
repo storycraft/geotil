@@ -2,7 +2,7 @@ module.exports = {
     entry: ['./src/index.js'],
     output: {
         path: __dirname + '/dist',
-        filename: 'index.min.js',
+        filename: 'geotil.min.js',
     },
     mode: 'production',
     plugins: [
