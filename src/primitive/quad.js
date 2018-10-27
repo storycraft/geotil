@@ -31,6 +31,16 @@ export default class Quad extends Primitive {
         return new Triangle(this.Point1, this.Point2, this.Point3).Area + new Triangle(this.Point3, this.Point4, this.Point1).Area;
     }
 
+    get BoundingBox() {
+        let minX = Math.min(Math.min(Math.min(this.Point1.X, this.Point2.X), this.Point3.X), this.Point4.X);
+        let minY = Math.min(Math.min(Math.min(this.Point1.Y, this.Point2.Y), this.Point3.Y), this.Point4.Y);
+
+        let maxX = Math.max(Math.max(Math.max(this.Point1.X, this.Point2.X), this.Point3.X), this.Point4.X);
+        let maxY = Math.max(Math.max(Math.max(this.Point1.Y, this.Point2.Y), this.Point3.Y), this.Point4.Y);
+
+        return new Rectangle(new Point2D(minX, minY), new Point2D(maxX - minX, maxY - minY));
+    }
+
     contains(point){
         return new Triangle(this.Point1, this.Point2, this.Point3).contains(point) || new Triangle(this.Point3, this.Point4, this.Point1).contains(point);
     }

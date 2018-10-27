@@ -10,6 +10,10 @@ export default class Box extends Rectangle {
         return super.Area() * (this.Size.Z || 0);
     }
 
+    get BoundingBox() {
+        return new Box(this.Location, this.Size);
+    }
+
     contains(point){
         point = Point3D.copy(point);
 

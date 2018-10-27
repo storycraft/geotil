@@ -23,6 +23,10 @@ export default class TriangleIsosceles extends Primitive {
         return new Rectangle(this.Location, this.Size).Area / 2;
     }
 
+    get BoundingBox() {
+        return new Rectangle(this.Location, this.Size);
+    }
+
     contains(point){
         return this.toTriangle().contains(point);
     }

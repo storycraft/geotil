@@ -32,6 +32,16 @@ export default class Triangle extends Primitive {
         return Math.sqrt(s * (s - a) * (s - b) * (s - c));
     }
 
+    get BoundingBox() {
+        let minX = Math.min(Math.min(this.Point1.X, this.Point2.X), this.Point3.X);
+        let minY = Math.min(Math.min(this.Point1.Y, this.Point2.Y), this.Point3.Y);
+
+        let maxX = Math.max(Math.max(this.Point1.X, this.Point2.X), this.Point3.X);
+        let maxY = Math.max(Math.max(this.Point1.Y, this.Point2.Y), this.Point3.Y);
+
+        return new Rectangle(new Point2D(minX, minY), new Point2D(maxX - minX, maxY - minY));
+    }
+
     contains(point){
         return Math.round(this.Area - (new Triangle(this.Point1, point, this.Point2).Area + new Triangle(this.Point2, point, this.Point3).Area + new Triangle(this.Point3, point, this.Point1).Area)) == 0;
     }

@@ -22,6 +22,10 @@ export default class Rectangle extends Primitive {
         return Math.abs((this.Size.X || 0) * (this.Size.Y || 0));
     }
 
+    get BoundingBox() {
+        return new Rectangle(this.Location, this.Size);
+    }
+
     contains(point){
         point = Point2D.copy(point);
         let location = Point2D.copy(this.Location);

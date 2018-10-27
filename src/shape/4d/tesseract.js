@@ -10,6 +10,10 @@ export default class Tesseract extends Box {
         return super.Area() * (this.Size.W || 0);
     }
 
+    get BoundingBox() {
+        return new Box(this.Location, this.Size);
+    }
+
     contains(point){
         point = Point4D.copy(point);
 
