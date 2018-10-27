@@ -1,5 +1,6 @@
 import Sphere from "../../3d/circular/sphere";
 import Point4D from "../../../point/point4D";
+import Tesseract from "../tesseract";
 
 export default class HyperSphere extends Sphere {
     constructor(centerPoint, radius) {
@@ -12,7 +13,7 @@ export default class HyperSphere extends Sphere {
     
     get BoundingBox() {
         var centerPoint = Point4D.copy(super.CenterPoint);
-        return new Box(centerPoint.subtract(super.Radius, super.Radius, super.Radius, super.Radius), centerPoint.add(super.Radius, super.Radius, super.Radius, super.Radius));
+        return new Tesseract(centerPoint.subtract(super.Radius, super.Radius, super.Radius, super.Radius), centerPoint.add(super.Radius, super.Radius, super.Radius, super.Radius));
     }
 
     contains(point){
