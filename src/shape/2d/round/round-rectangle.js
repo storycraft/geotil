@@ -1,5 +1,4 @@
 import Rectangle from "../rectangle";
-import Point2D from "../../point/point2D";
 import Circle from "../circular/circle";
 
 export default class RoundRectangle extends Rectangle {

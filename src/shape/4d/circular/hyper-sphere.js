@@ -1,7 +1,7 @@
 import Sphere from "../../3d/circular/sphere";
 import Point4D from "../../../point/point4D";
 
-export default class Hypersphere extends Sphere {
+export default class HyperSphere extends Sphere {
     constructor(centerPoint, radius) {
         super(centerPoint, radius);
     }
