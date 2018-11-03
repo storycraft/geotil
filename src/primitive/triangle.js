@@ -1,5 +1,7 @@
 import Primitive from "./primitive";
 import Point4D from "../point/point4D";
+import Rectangle from "../shape/2d/rectangle";
+import Point2D from "../point/point2D";
 
 export default class Triangle extends Primitive {
     constructor(point1, point2, point3){

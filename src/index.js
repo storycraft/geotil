@@ -16,6 +16,11 @@ import Point2D from "./point/point2D";
 import Point3D from "./point/point3D";
 import Point4D from "./point/point4D";
 import Line from "./line/line";
+import LineAbstract from "./line/line-abstract";
+import LineCurve from "./line/curve/line-curve";
+import BezierCurve from "./line/curve/bezier-curve";
+import Ellipse from "./shape/2d/circular/ellipse";
+import MultiLine from "./line/multi-line";
 
 const structure = {
 
@@ -33,7 +38,8 @@ const structure = {
     'shape': {
         '2d': {
             'circular': {
-                'Circle': Circle
+                'Circle': Circle,
+                'Ellipse': Ellipse
             },
             'round': {
                 'RoundRectangle': RoundRectangle
@@ -66,7 +72,14 @@ const structure = {
     },
 
     'line': {
-        'Line': Line
+        'LineAbstract': LineAbstract,
+        'Line': Line,
+        'MultiLine': MultiLine,
+
+        'curve': {
+            'LineCurve': LineCurve,
+            'BezierCurve': BezierCurve
+        }
     }
 }
 

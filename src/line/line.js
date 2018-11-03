@@ -1,7 +1,10 @@
 import Point4D from "../point/point4D";
+import LineAbstract from "./line-abstract";
 
-export default class Line {
+export default class Line extends LineAbstract {
     constructor(startPoint, endPoint) {
+        super();
+
         this.startPoint = startPoint;
         this.endPoint = endPoint;
     }
@@ -14,12 +17,27 @@ export default class Line {
         return this.endPoint;
     }
 
-    get SquareDistance() {
+    get SquareLength() {
         return Point4D.copy(this.StartPoint).squareDistanceToPoint(this.EndPoint);
     }
 
-    get Distance() {
+    get Length() {
         return Point4D.copy(this.StartPoint).distanceToPoint(this.EndPoint);
+    }
+
+    get Slope() {
+        let lengthX = this.EndPoint.X - this.StartPoint.X;
+        let lengthY = this.EndPoint.Y - this.StartPoint.Y;
+
+        return lengthY / lengthX;
+    }
+
+    distanceTo(point) {
+        //TODO
+    }
+
+    squareDistanceTo(point) {
+       //TODO 
     }
 
     getPointAt(progress) {
