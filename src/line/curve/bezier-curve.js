@@ -1,5 +1,6 @@
 import LineCurve from "./line-curve";
 import Line from "../line";
+import Point4D from "../../point/point4D";
 
 export default class BezierCurve extends LineCurve {
     constructor(...pointList) {
@@ -29,28 +30,26 @@ export default class BezierCurve extends LineCurve {
     }
 
     getInflectedPointAt(progress) {
+        if (this.PointLength < 1)
+            return new Point4D();
+
+        progress = Math.max(Math.min(progress, 1), 0);
+
         var n = this.PointLength - 1;
+        var a = 1;
 
-        var inlineList = [];
+        var point = new Point4D();
+        for (var i = 0; i <= n; i++) {
+            var o = a * Math.pow(progress, i) * Math.pow(1 - progress, n - i);
 
-        for (var i = 0; i < n;i++) {
-            var line = new Line(this.PointList[i], this.PointList[i + 1]);
+            point.X += (this.PointList[i].X || 0) * o;
+            point.Y += (this.PointList[i].Y || 0) * o;
+            point.Z += (this.PointList[i].Z || 0) * o;
+            point.W += (this.PointList[i].W || 0) * o;
 
-            inlineList.push(line);
-        }
-        
-        while (inlineList.length > 1) {
-            var size = inlineList.length - 1;
-
-            var nextLineList = [];
-            for (var i = 0; i < size; i++) {
-                var line = new Line(inlineList[i].getPointAt(progress), inlineList[i + 1].getPointAt(progress));
-                nextLineList.push(line);
-            }
-
-            inlineList = nextLineList;
+            a *= (n - i) / (i + 1);
         }
 
-        return inlineList[0].getPointAt(progress);
+        return point;
     }
 }

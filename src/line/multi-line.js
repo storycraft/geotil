@@ -21,7 +21,7 @@ export default class MultiLine {
 
     getPointAt(progress) {
         if (this.LineList.length < 1)
-            return new Point4D(0, 0, 0, 0);
+            return new Point4D();
 
         progress = Math.max(Math.min(progress, 1), 0);
 
@@ -47,10 +47,11 @@ export default class MultiLine {
 
     getPointAtWithoutRatio(progress) {
         if (this.LineList.length < 1)
-            return new Point4D(0, 0, 0, 0);
+            return new Point4D();
+
+        progress = Math.max(Math.min(progress, 1), 0);
 
         let section = 1 / this.LineList.length;
-
         let targetLine = this.LineList[Math.floor(progress * this.LineList.length)];
 
         return targetLine.getPointAt((progress % section) / section);

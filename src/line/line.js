@@ -25,21 +25,6 @@ export default class Line extends LineAbstract {
         return Point4D.copy(this.StartPoint).distanceToPoint(this.EndPoint);
     }
 
-    get Slope() {
-        let lengthX = this.EndPoint.X - this.StartPoint.X;
-        let lengthY = this.EndPoint.Y - this.StartPoint.Y;
-
-        return lengthY / lengthX;
-    }
-
-    distanceTo(point) {
-        //TODO
-    }
-
-    squareDistanceTo(point) {
-       //TODO 
-    }
-
     getPointAt(progress) {
         let startPoint = Point4D.copy(this.StartPoint);
         let endPoint = Point4D.copy(this.EndPoint);
