@@ -1,6 +1,7 @@
 import LineCurve from "./line-curve";
 import Line from "../line";
 import Point4D from "../../point/point4D";
+import MultiLine from "../multi-line";
 
 export default class BezierCurve extends LineCurve {
     constructor(...pointList) {
@@ -25,11 +26,34 @@ export default class BezierCurve extends LineCurve {
         return this.Length == 0 ? null : this.PointList[this.PointList.length - 1];
     }
 
-    getPointAt(progress) {
-        //TODO
+    get ArcLineList() {
+        var lineList = [];
+
+        var lastPoint = new Point4D();
+        let total = BezierCurve.ARC_LENGTH;
+        for(var i = 1; i <= total; i += 1) {
+            var point = this.getPointAtUnUniformed(i / total);
+            lineList[i] = new Line(lastPoint, point);
+            
+            lastPoint = point;
+        }
+
+        return lineList;
     }
 
-    getInflectedPointAt(progress) {
+    get Length() {
+        return new MultiLine(this.ArcLineList).Length;
+    }
+
+    get SquareLength() {
+        return Math.pow(this.Length, 2);
+    }
+
+    getPointAt(progress) {
+        return new MultiLine(this.ArcLineList).getPointAt(progress);
+    }
+
+    getPointAtUnUniformed(progress) {
         if (this.PointLength < 1)
             return new Point4D();
 
@@ -53,3 +77,5 @@ export default class BezierCurve extends LineCurve {
         return point;
     }
 }
+
+BezierCurve.ARC_LENGTH = 50;

@@ -5,7 +5,7 @@ export default class LineCurve extends LineAbstract {
         super();
     }
 
-    getInflectedPointAt(progress) {
+    getPointAtUnUniformed(progress) {
         
     }
 }

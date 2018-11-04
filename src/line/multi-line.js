@@ -1,12 +1,24 @@
 import Point4D from "../point/point4D";
+import LineAbstract from "./line-abstract";
 
-export default class MultiLine { 
+export default class MultiLine extends LineAbstract { 
     constructor(...lineList) {
+        super();
         this.lineList = lineList;
     }
 
     get LineList() {
         return this.lineList;
+    }
+
+    get SquareLength() {
+        var length = 0;
+
+        for (var line of this.LineList) {
+            length += line.SquareLength;    
+        }
+
+        return length;
     }
 
     get Length() {
@@ -19,7 +31,7 @@ export default class MultiLine {
         return length;
     }
 
-    getPointAt(progress) {
+    getPointAt(progress, uniformed) {
         if (this.LineList.length < 1)
             return new Point4D();
 
@@ -42,18 +54,12 @@ export default class MultiLine {
             b += line.Length;
         }
 
-        return targetLine.getPointAt((progress - (b / length)) / (targetLength / length));
+        let lineProgress = (progress - (b / length)) / (targetLength / length);
+
+        return uniformed && targetLine.getPointAtUnUniformed ? targetLine.getPointAtUnUniformed(lineProgress) : targetLine.getPointAt(lineProgress);
     }
 
-    getPointAtWithoutRatio(progress) {
-        if (this.LineList.length < 1)
-            return new Point4D();
-
-        progress = Math.max(Math.min(progress, 1), 0);
-
-        let section = 1 / this.LineList.length;
-        let targetLine = this.LineList[Math.floor(progress * this.LineList.length)];
-
-        return targetLine.getPointAt((progress % section) / section);
+    getPointAtUnUniformed(progress) {
+        return this.getPointAt(progress, true);
     }
 }
