@@ -54,7 +54,10 @@ export default class MultiLine extends LineAbstract {
             b += line.Length;
         }
 
-        let lineProgress = (progress - (b / length)) / (targetLength / length);
+        let lineStartProgress = (b / length);
+        let lineEndProgress = (b + targetLength / length);
+
+        let lineProgress = (progress - lineStartProgress) / lineEndProgress;
 
         return uniformed && targetLine.getPointAtUnUniformed ? targetLine.getPointAtUnUniformed(lineProgress) : targetLine.getPointAt(lineProgress);
     }
