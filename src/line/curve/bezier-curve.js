@@ -8,7 +8,7 @@ export default class BezierCurve extends LineCurve {
         super(pointList);
     }
 
-    toMultiLine(division = BezierCurve.ARC_LENGTH) {
+    toMultiLine(division = BezierCurve.DIVISION) {
         var lineList = [];
 
         if (this.PointLength > 1) {
@@ -61,4 +61,4 @@ export default class BezierCurve extends LineCurve {
     }
 }
 
-BezierCurve.ARC_LENGTH = 75;
+BezierCurve.DIVISION = 75;

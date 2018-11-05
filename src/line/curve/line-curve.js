@@ -23,6 +23,10 @@ export default class LineCurve extends LineAbstract {
         return this.PointLength < 1 ? null : this.PointList[this.PointLength - 1];
     }
 
+    toMultiLine(division) {
+        return null;
+    }
+
     getPointAtUnUniformed(progress) {
         
     }

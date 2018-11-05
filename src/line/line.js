@@ -1,5 +1,6 @@
 import Point4D from "../point/point4D";
 import LineAbstract from "./line-abstract";
+import MathUtil from "../util/math-util";
 
 export default class Line extends LineAbstract {
     constructor(startPoint, endPoint) {
@@ -29,6 +30,6 @@ export default class Line extends LineAbstract {
         let startPoint = Point4D.copy(this.StartPoint);
         let endPoint = Point4D.copy(this.EndPoint);
 
-        return startPoint.add((endPoint.X - startPoint.X) * progress, (endPoint.Y - startPoint.Y) * progress, (endPoint.Z - startPoint.Z) * progress, (endPoint.W - startPoint.W) * progress);
+        return new Point4D(MathUtil.lerp(startPoint.X, endPoint.X, progress), MathUtil.lerp(startPoint.Y, endPoint.Y, progress), MathUtil.lerp(startPoint.Z, endPoint.Z, progress), MathUtil.lerp(startPoint.W, endPoint.W, progress));
     }
 }

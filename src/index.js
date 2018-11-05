@@ -21,8 +21,29 @@ import LineCurve from "./line/curve/line-curve";
 import BezierCurve from "./line/curve/bezier-curve";
 import Ellipse from "./shape/2d/circular/ellipse";
 import MultiLine from "./line/multi-line";
+import CardinalSpline from "./line/curve/cardinal-spline";
+import MathUtil from "./util/math-util";
 
 const structure = {
+
+    'point': {
+        'Point': Point,
+        'Point2D': Point2D,
+        'Point3D': Point3D,
+        'Point4D': Point4D
+    },
+
+    'line': {
+        'LineAbstract': LineAbstract,
+        'Line': Line,
+        'MultiLine': MultiLine,
+
+        'curve': {
+            'LineCurve': LineCurve,
+            'BezierCurve': BezierCurve,
+            'CardinalSpline': CardinalSpline
+        }
+    },
 
     'primitive': {
         'circular': {
@@ -64,22 +85,8 @@ const structure = {
         }
     },
 
-    'point': {
-        'Point': Point,
-        'Point2D': Point2D,
-        'Point3D': Point3D,
-        'Point4D': Point4D
-    },
-
-    'line': {
-        'LineAbstract': LineAbstract,
-        'Line': Line,
-        'MultiLine': MultiLine,
-
-        'curve': {
-            'LineCurve': LineCurve,
-            'BezierCurve': BezierCurve
-        }
+    'util': {
+        'MathUtil': MathUtil
     }
 }
 
