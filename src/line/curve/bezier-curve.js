@@ -32,6 +32,14 @@ export default class BezierCurve extends LineCurve {
         return this.toMultiLine().SquareLength;
     }
 
+    getClosestProgressFrom(point) {
+        return this.toMultiLine().getClosestProgressFrom(point);
+    }
+    
+    getClosestPointFrom(point) {
+        return this.toMultiLine().getClosestPointFrom(point);
+    }
+
     getPointAt(progress) {
         return this.toMultiLine().getPointAt(progress);
     }

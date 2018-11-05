@@ -15,11 +15,9 @@ export default class Point3D extends Point2D {
     }
 
     squareDistanceTo(x = 0, y = 0, z = 0){
-        let distanceX = x - this.X;
-        let distanceY = y - this.Y;
         let distanceZ = z - this.Z;
 
-        return Math.pow(distanceX, 2) + Math.pow(distanceY, 2) + Math.pow(distanceZ, 2);
+        return super.squareDistanceTo(x, y) + Math.pow(distanceZ, 2);
     }
 
     distanceTo(x = 0, y = 0, z = 0){

@@ -19,6 +19,14 @@ export default class LineAbstract {
         return 0;
     }
 
+    getClosestProgressFrom(point) {
+        return 0;
+    }
+
+    getClosestPointFrom(point) {
+        return null;/*Point Object*/
+    }
+
     getPointAt(progress) {
         return null;/*Point Object*/
     }

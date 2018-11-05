@@ -1,5 +1,6 @@
 import Point4D from "../point/point4D";
 import LineAbstract from "./line-abstract";
+import Line from "./line";
 
 export default class MultiLine extends LineAbstract { 
     constructor(lineList) {
@@ -14,7 +15,7 @@ export default class MultiLine extends LineAbstract {
     get SquareLength() {
         var length = 0;
 
-        for (var line of this.LineList) {
+        for (let line of this.LineList) {
             length += line.SquareLength;    
         }
 
@@ -24,7 +25,7 @@ export default class MultiLine extends LineAbstract {
     get Length() {
         var length = 0;
 
-        for (var line of this.LineList) {
+        for (let line of this.LineList) {
             length += line.Length;    
         }
 
@@ -65,6 +66,55 @@ export default class MultiLine extends LineAbstract {
             return null;
 
         return this.LineList[index];
+    }
+
+    getClosestProgressFrom(point) {
+        point = Point4D.copy(point);
+
+        var minDistanceSquared = Infinity;
+        var minLineLength = 0;
+        var minLineDistance = 0;
+
+        var addedLength = 0;
+        var totalLength = 0;
+        var stackedLength = 0;
+        for (let line of this.LineList) {
+            let currentLineDistance = line.getClosestProgressFrom(point);
+            let lineLength = line.Length;
+
+            if (minDistanceSquared >= distanceSquared) {
+                minLineDistance = currentLineDistance;
+                minLineLength = lineLength;
+                minDistanceSquared = distanceSquared;
+
+                addedLength += stackedLength;
+                stackedLength = 0;
+            }
+
+            stackedLength += lineLength;
+            totalLength += lineLength;
+        }
+
+        return (addedLength + (minLineDistance * minLineLength)) / totalLength;
+    }
+    
+    getClosestPointFrom(point) {
+        point = Point4D.copy(point);
+
+        var minDistanceSquared = Infinity;
+        var minPoint = null;
+
+        for (let line of this.LineList) {
+            let linePoint = line.getClosestPointFrom(point);
+            let distanceSquared = linePoint.squareDistanceToPoint(point);
+
+            if (minDistanceSquared >= distanceSquared) {
+                minPoint = linePoint;
+                minDistanceSquared = distanceSquared;
+            }
+        }
+
+        return minPoint;
     }
 
     getPointAt(progress, uniformed) {

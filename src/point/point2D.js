@@ -15,10 +15,9 @@ export default class Point2D extends Point {
     }
 
     squareDistanceTo(x = 0, y = 0){
-        let distanceX = x - this.X;
         let distanceY = y - this.Y;
 
-        return Math.pow(distanceX, 2) + Math.pow(distanceY, 2);
+        return super.squareDistanceTo(x) + Math.pow(distanceY, 2);
     }
 
     distanceTo(x = 0, y = 0){
