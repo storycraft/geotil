@@ -4,53 +4,36 @@ import Point4D from "../../point/point4D";
 import MultiLine from "../multi-line";
 
 export default class BezierCurve extends LineCurve {
-    constructor(...pointList) {
-        super();
-
-        this.pointList  = pointList;
+    constructor(pointList) {
+        super(pointList);
     }
 
-    get PointList() {
-        return this.pointList;
-    }
-
-    get PointLength() {
-        return this.pointList.length;
-    }
-
-    get StartPoint() {
-        return this.Length == 0 ? null : this.PointList[0];
-    }
-
-    get EndPoint() {
-        return this.Length == 0 ? null : this.PointList[this.PointList.length - 1];
-    }
-
-    get ArcLineList() {
+    toMultiLine(division = BezierCurve.ARC_LENGTH) {
         var lineList = [];
 
-        var lastPoint = new Point4D();
-        let total = BezierCurve.ARC_LENGTH;
-        for(var i = 1; i <= total; i += 1) {
-            var point = this.getPointAtUnUniformed(i / total);
-            lineList[i] = new Line(lastPoint, point);
-            
-            lastPoint = point;
+        if (this.PointLength > 1) {
+            var lastPoint = this.StartPoint;
+            for(let i = 1; i <= division; i += 1) {
+                var point = this.getPointAtUnUniformed(i / division);
+                lineList[i - 1] = (new Line(lastPoint, point));
+
+                lastPoint = point;
+            }
         }
 
-        return lineList;
+        return new MultiLine(lineList);
     }
 
     get Length() {
-        return new MultiLine(this.ArcLineList).Length;
+        return this.toMultiLine().Length;
     }
 
     get SquareLength() {
-        return Math.pow(this.Length, 2);
+        return this.toMultiLine().SquareLength;
     }
 
     getPointAt(progress) {
-        return new MultiLine(this.ArcLineList).getPointAt(progress);
+        return this.toMultiLine().getPointAt(progress);
     }
 
     getPointAtUnUniformed(progress) {
@@ -78,4 +61,4 @@ export default class BezierCurve extends LineCurve {
     }
 }
 
-BezierCurve.ARC_LENGTH = 50;
+BezierCurve.ARC_LENGTH = 75;

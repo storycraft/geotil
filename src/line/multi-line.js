@@ -2,7 +2,7 @@ import Point4D from "../point/point4D";
 import LineAbstract from "./line-abstract";
 
 export default class MultiLine extends LineAbstract { 
-    constructor(...lineList) {
+    constructor(lineList) {
         super();
         this.lineList = lineList;
     }
@@ -39,27 +39,25 @@ export default class MultiLine extends LineAbstract {
 
         let length = this.Length;
 
-        let a = length * progress;
-        let b = 0;
+        let goalLength = length * progress;
+        let addedLength = 0;
         let targetLength = 0;
-        let targetLine = null;
+        let targetLine = this.LineList[0];
+
         for (var line of this.LineList) {
             targetLength = line.Length;
 
-            if (b < a && b + targetLength > a) {
+            if (addedLength <= goalLength && addedLength + targetLength >= goalLength) {
                 targetLine = line;
                 break;
             }
 
-            b += line.Length;
+            addedLength += targetLength;
         }
+        
+        let lineProgress = (goalLength - addedLength) / targetLength;
 
-        let lineStartProgress = (b / length);
-        let lineEndProgress = (b + targetLength / length);
-
-        let lineProgress = (progress - lineStartProgress) / lineEndProgress;
-
-        return uniformed && targetLine.getPointAtUnUniformed ? targetLine.getPointAtUnUniformed(lineProgress) : targetLine.getPointAt(lineProgress);
+        return (uniformed && targetLine.getPointAtUnUniformed) ? targetLine.getPointAtUnUniformed(lineProgress) : targetLine.getPointAt(lineProgress);
     }
 
     getPointAtUnUniformed(progress) {
