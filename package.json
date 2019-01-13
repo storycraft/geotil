@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "node_modules/.bin/webpack"
+    "build": "./node_modules/.bin/babel src -d dist"
   },
   "keywords": [
     "geometry"
@@ -13,10 +13,8 @@
   "author": "storycraft",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "^7.1.2",
-    "@babel/preset-env": "^7.1.0",
-    "babel-loader": "^8.0.4",
-    "webpack": "^4.20.2",
-    "webpack-cli": "^3.1.2"
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-loader": "^8.0.4"
   }
 }
