@@ -1,7 +1,12 @@
 import Point3D from "./point3D";
+import Point2D from "./point2D";
+import Point from "./point";
 
 export default class Point4D extends Point3D {
-    constructor(x, y, z, w){
+
+    private w: number;
+
+    constructor(x?: number, y?: number, z?: number, w?: number){
         super(x, y, z);
         this.w = w || 0;
     }
@@ -40,31 +45,31 @@ export default class Point4D extends Point3D {
         return new Point4D(this.X / x, this.Y / y, this.Z / z, this.W / w);
     }
 
-    addPoint(point){
+    addPoint(point: Point4D){
         return this.add(point.X, point.Y, point.Z, point.W);
     }
 
-    subtractPoint(point){
+    subtractPoint(point: Point4D){
         return this.subtract(point.X, point.Y, point.Z, point.W);
     }
 
-    multiplyPoint(point){
+    multiplyPoint(point: Point4D){
         return this.multiply(point.X, point.Y, point.Z, point.W);
     }
 
-    dividePoint(point){
+    dividePoint(point: Point4D){
         return this.divide(point.X, point.Y, point.Z, point.W);
     }
 
-    distanceToPoint(point){
+    distanceToPoint(point: Point4D){
         return this.distanceTo(point.X, point.Y, point.Z, point.W);
     }
 
-    squareDistanceToPoint(point){
+    squareDistanceToPoint(point: Point4D){
         return this.squareDistanceTo(point.X, point.Y, point.Z, point.W);
     }
 
-    static copy(point){
-        return new Point4D(point.X, point.Y, point.Z, point.W);
+    static copy<T extends Point>(point: T){
+        return new Point4D(point.X, point instanceof Point2D ? point.Y : 0, point instanceof Point3D ? point.Z : 0, point instanceof Point4D ? point.Z : 0);
     }
 }

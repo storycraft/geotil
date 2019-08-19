@@ -1,8 +1,12 @@
 import Rectangle from "../rectangle";
 import Circle from "../circular/circle";
+import Point2D from "../../../point/point2D";
 
-export default class RoundRectangle extends Rectangle {
-    constructor(location, size, roundRadius = 0){
+export default class RoundRectangle<T extends Point2D> extends Rectangle<T> {
+
+    private roundRadius: number;
+
+    constructor(location: T, size: T, roundRadius = 0){
         super(location, size);
 
         this.roundRadius = roundRadius;
@@ -22,10 +26,10 @@ export default class RoundRectangle extends Rectangle {
 
     get InnerRectangle() {
         var diameter = this.RoundRadius * 2;
-        return new Rectangle(super.Location.add(this.RoundRadius, this.RoundRadius, this.RoundRadius, this.RoundRadius), super.Size.subtract(diameter, diameter, diameter, diameter));
+        return new Rectangle(super.Location.add(this.RoundRadius, this.RoundRadius), super.Size.subtract(diameter, diameter));
     }
 
-    contains(point){
+    contains(point: T){
         let verticalRectangle = new Rectangle(super.Location.add(this.RoundRadius), this.Size.subtract(this.RoundRadius * 2, 0));
         let horizontalRectangle = new Rectangle(super.Location.add(0, this.RoundRadius), this.Size.subtract(0, this.RoundRadius * 2));
 

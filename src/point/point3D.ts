@@ -1,7 +1,11 @@
 import Point2D from "./point2D";
+import Point from "./point";
 
 export default class Point3D extends Point2D {
-    constructor(x, y, z){
+
+    private z: number;
+
+    constructor(x?: number, y?: number, z?: number){
         super(x, y);
         this.z = z || 0;
     }
@@ -40,31 +44,31 @@ export default class Point3D extends Point2D {
         return new Point3D(this.X / x, this.Y / y, this.Z / z);
     }
 
-    addPoint(point){
+    addPoint(point: Point3D){
         return this.add(point.X, point.Y, point.Z);
     }
 
-    subtractPoint(point){
+    subtractPoint(point: Point3D){
         return this.subtract(point.X, point.Y, point.Z);
     }
 
-    multiplyPoint(point){
+    multiplyPoint(point: Point3D){
         return this.multiply(point.X, point.Y, point.Z);
     }
 
-    dividePoint(point){
+    dividePoint(point: Point3D){
         return this.divide(point.X, point.Y, point.Z);
     }
 
-    distanceToPoint(point){
+    distanceToPoint(point: Point3D){
         return this.distanceTo(point.X, point.Y, point.Z);
     }
 
-    squareDistanceToPoint(point){
+    squareDistanceToPoint(point: Point3D){
         return this.squareDistanceTo(point.X, point.Y, point.Z);
     }
 
-    static copy(point){
-        return new Point3D(point.X, point.Y, point.Z);
+    static copy<T extends Point>(point: T){
+        return new Point3D(point.X, point instanceof Point2D ? point.Y : 0, point instanceof Point3D ? point.Y : 0);
     }
 }

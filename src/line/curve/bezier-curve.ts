@@ -2,14 +2,27 @@ import LineCurve from "./line-curve";
 import Line from "../line";
 import Point4D from "../../point/point4D";
 import MultiLine from "../multi-line";
+import Point from "../../point/point";
+import { LineAbstract } from "../..";
 
-export default class BezierCurve extends LineCurve {
-    constructor(pointList) {
-        super(pointList);
+export default class BezierCurve<T extends Point> extends LineCurve<T> {
+
+    static readonly DIVISION: number = 75;
+
+    private pointList: Array<T>;
+
+    constructor(pointList: Array<T>) {
+        super();
+
+        this.pointList = pointList;
+    }
+
+    get PointList() {
+        return this.pointList;
     }
 
     toMultiLine(division = BezierCurve.DIVISION) {
-        var lineList = [];
+        var lineList: Array<LineAbstract<T>> = [];
 
         if (this.PointLength > 1) {
             var lastPoint = this.StartPoint;
@@ -21,7 +34,7 @@ export default class BezierCurve extends LineCurve {
             }
         }
 
-        return new MultiLine(lineList);
+        return new MultiLine<T>(lineList);
     }
 
     get Length() {
@@ -32,21 +45,21 @@ export default class BezierCurve extends LineCurve {
         return this.toMultiLine().SquareLength;
     }
 
-    getClosestProgressFrom(point) {
+    getClosestProgressFrom(point: T) {
         return this.toMultiLine().getClosestProgressFrom(point);
     }
     
-    getClosestPointFrom(point) {
+    getClosestPointFrom(point: T) {
         return this.toMultiLine().getClosestPointFrom(point);
     }
 
-    getPointAt(progress) {
+    getPointAt(progress: number) {
         return this.toMultiLine().getPointAt(progress);
     }
 
-    getPointAtUnUniformed(progress) {
+    getPointAtUnUniformed(progress: number) {
         if (this.PointLength < 1)
-            return new Point4D();
+            return <T> <any> new Point4D();
 
         progress = Math.max(Math.min(progress, 1), 0);
 
@@ -57,16 +70,16 @@ export default class BezierCurve extends LineCurve {
         for (var i = 0; i <= n; i++) {
             var o = a * Math.pow(progress, i) * Math.pow(1 - progress, n - i);
 
-            point.X += (this.PointList[i].X || 0) * o;
-            point.Y += (this.PointList[i].Y || 0) * o;
-            point.Z += (this.PointList[i].Z || 0) * o;
-            point.W += (this.PointList[i].W || 0) * o;
+            let targetPoint = Point4D.copy(this.PointList[i]);
+
+            point.X += (targetPoint.X || 0) * o;
+            point.Y += (targetPoint.Y || 0) * o;
+            point.Z += (targetPoint.Z || 0) * o;
+            point.W += (targetPoint.W || 0) * o;
 
             a *= (n - i) / (i + 1);
         }
 
-        return point;
+        return <T> <any> point;
     }
 }
-
-BezierCurve.DIVISION = 75;

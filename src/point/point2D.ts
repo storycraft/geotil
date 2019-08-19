@@ -1,7 +1,10 @@
 import Point from "./point";
 
 export default class Point2D extends Point {
-    constructor(x, y){
+
+    private y: number;
+
+    constructor(x?: number, y?: number){
         super(x);
         this.y = y || 0;
     }
@@ -40,31 +43,31 @@ export default class Point2D extends Point {
         return new Point2D(this.X / x, this.Y / y);
     }
 
-    addPoint(point){
+    addPoint(point: Point2D){
         return this.add(point.X, point.Y);
     }
 
-    subtractPoint(point){
+    subtractPoint(point: Point2D){
         return this.subtract(point.X, point.Y);
     }
 
-    multiplyPoint(point){
+    multiplyPoint(point: Point2D){
         return this.multiply(point.X, point.Y);
     }
 
-    dividePoint(point){
+    dividePoint(point: Point2D){
         return this.divide(point.X, point.Y);
     }
 
-    distanceToPoint(point){
+    distanceToPoint(point: Point2D){
         return this.distanceTo(point.X, point.Y);
     }
 
-    squareDistanceToPoint(point){
+    squareDistanceToPoint(point: Point2D){
         return this.squareDistanceTo(point.X, point.Y);
     }
 
-    static copy(point){
-        return new Point2D(point.X, point.Y);
+    static copy<T extends Point>(point: T){
+        return new Point2D(point.X, point instanceof Point2D ? point.Y : 0);
     }
 }
