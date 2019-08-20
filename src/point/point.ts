@@ -10,10 +10,6 @@ export default class Point {
         return this.x;
     }
 
-    set X(x){
-        this.x = x;
-    }
-
     squareDistanceTo(x = 0){
         let distanceX = x - this.X;
 

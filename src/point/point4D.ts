@@ -15,10 +15,6 @@ export default class Point4D extends Point3D {
         return this.w;
     }
 
-    set W(w){
-        this.w = w;
-    }
-
     squareDistanceTo(x = 0, y = 0, z = 0, w = 0){
         let distanceW = w - this.W;
 
