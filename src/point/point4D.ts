@@ -4,6 +4,8 @@ import Point from "./point";
 
 export default class Point4D extends Point3D {
 
+    static readonly ZERO = new Point4D(0, 0, 0, 0);
+
     private w: number;
 
     constructor(x?: number, y?: number, z?: number, w?: number){

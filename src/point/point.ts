@@ -1,5 +1,7 @@
 export default class Point {
 
+    static readonly ZERO = new Point(0);
+
     private x: number;
 
     constructor(x?: number){

@@ -2,6 +2,8 @@ import Point from "./point";
 
 export default class Point2D extends Point {
 
+    static readonly ZERO = new Point2D(0, 0);
+
     private y: number;
 
     constructor(x?: number, y?: number){
