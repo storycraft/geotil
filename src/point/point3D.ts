@@ -5,7 +5,7 @@ export default class Point3D extends Point2D {
 
     static readonly ZERO = new Point3D(0, 0, 0);
 
-    private z: number;
+    protected z: number;
 
     constructor(x?: number, y?: number, z?: number){
         super(x, y);

@@ -2,7 +2,7 @@ export default class Point {
 
     static readonly ZERO = new Point(0);
 
-    private x: number;
+    protected x: number;
 
     constructor(x?: number){
         this.x = x || 0;
