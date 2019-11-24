@@ -3,7 +3,9 @@ import Point from "./point";
 
 export default class Point3D extends Point2D {
 
-    static readonly ZERO = new Point3D(0, 0, 0);
+    static get ZERO() {
+        return new Point3D(0, 0, 0);
+    }
 
     protected z: number;
 

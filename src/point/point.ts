@@ -1,6 +1,8 @@
 export default class Point {
 
-    static readonly ZERO = new Point(0);
+    static get ZERO() {
+        return new Point(0);
+    }
 
     protected x: number;
 

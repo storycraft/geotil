@@ -1,10 +1,10 @@
 import Point3D from "./point3D";
-import Point2D from "./point2D";
-import Point from "./point";
 
 export default class Point4D extends Point3D {
 
-    static readonly ZERO = new Point4D(0, 0, 0, 0);
+    static get ZERO() {
+        return new Point4D(0, 0, 0, 0);
+    }
 
     protected w: number;
 

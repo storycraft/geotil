@@ -2,7 +2,9 @@ import Point from "./point";
 
 export default class Point2D extends Point {
 
-    static readonly ZERO = new Point2D(0, 0);
+    static get ZERO() {
+        return new Point2D(0, 0);
+    }
 
     protected y: number;
 
@@ -11,8 +13,12 @@ export default class Point2D extends Point {
         this.y = y || 0;
     }
 
-    get Y(){
+    get Y() {
         return this.y;
+    }
+    
+    set Y(y) {
+        this.y = y;
     }
 
     get PointSum() {
