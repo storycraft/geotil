@@ -2,11 +2,11 @@ import Rectangle from "../rectangle";
 import Circle from "../circular/circle";
 import Point2D from "../../../point/point2D";
 
-export default class RoundRectangle<T extends Point2D> extends Rectangle<T> {
+export default class RoundRectangle extends Rectangle {
 
     private roundRadius: number;
 
-    constructor(location: T, size: T, roundRadius = 0){
+    constructor(location: Point2D, size: Point2D, roundRadius = 0){
         super(location, size);
 
         this.roundRadius = roundRadius;
@@ -26,20 +26,17 @@ export default class RoundRectangle<T extends Point2D> extends Rectangle<T> {
 
     get InnerRectangle() {
         var diameter = this.RoundRadius * 2;
-        return new Rectangle(super.Location.add(this.RoundRadius, this.RoundRadius), super.Size.subtract(diameter, diameter));
+        return new Rectangle(super.Location.clone().add(this.RoundRadius, this.RoundRadius), super.Size.clone().subtract(diameter, diameter));
     }
 
-    contains(point: T){
-        let verticalRectangle = new Rectangle(super.Location.add(this.RoundRadius), this.Size.subtract(this.RoundRadius * 2, 0));
-        let horizontalRectangle = new Rectangle(super.Location.add(0, this.RoundRadius), this.Size.subtract(0, this.RoundRadius * 2));
+    contains(point: Point2D) {
+        let center = this.Location.clone().add(this.Size.X / 2,  this.Size.Y / 2);
 
-        let topLeftOuterCircle = new Circle(super.Location.add(this.RoundRadius, this.RoundRadius), this.RoundRadius);
-        let topRightOuterCircle = new Circle(super.Location.add(this.Size.X - this.RoundRadius, this.RoundRadius), this.RoundRadius);
-        let bottomLeftOuterCircle = new Circle(super.Location.add(this.RoundRadius, this.Size.Y - this.RoundRadius), this.RoundRadius);
-        let bottomRightOuterCircle = new Circle(super.Location.add(this.Size.X - this.RoundRadius, this.Size.Y - this.RoundRadius), this.RoundRadius);
+        center.subtractPoint(point);
 
-        return this.InnerRectangle.contains(point)
-         || verticalRectangle.contains(point) || horizontalRectangle.contains(point)
-         || topLeftOuterCircle.contains(point) || topRightOuterCircle.contains(point) || bottomLeftOuterCircle.contains(point) || bottomRightOuterCircle.contains(point);
+        let xInner = (this.Size.X / 2) - this.RoundRadius;
+        let yInner = (this.Size.Y / 2) - this.RoundRadius;
+
+        return Math.pow(Math.abs(center.X) - xInner, 2) + Math.pow(Math.abs(center.Y) - yInner, 2) <= Math.pow(this.RoundRadius, 2);
     }
 }

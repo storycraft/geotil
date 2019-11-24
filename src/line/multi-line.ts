@@ -91,9 +91,7 @@ export default class MultiLine<T extends Point> extends LineAbstract<T> {
         return this.LineList[index];
     }
 
-    getClosestProgressFrom(point: Point) {
-        point = Point4D.copy(point);
-
+    getClosestProgressFrom(point: T) {
         var minDistanceSquared = Infinity;
         var minPoint = null;
         var targetLine = null;
@@ -102,7 +100,7 @@ export default class MultiLine<T extends Point> extends LineAbstract<T> {
         var totalLength = 0;
 
         for (let line of this.LineList) {
-            let closestProgress = line.getClosestProgressFrom(<T> point);
+            let closestProgress = line.getClosestProgressFrom(point);
 
             let length = line.Length;
 
@@ -129,9 +127,7 @@ export default class MultiLine<T extends Point> extends LineAbstract<T> {
         return lengthToLine / totalLength;
     }
     
-    getClosestPointFrom(point: Point) {
-        point = Point4D.copy(point);
-
+    getClosestPointFrom(point: T) {
         var minDistanceSquared = Infinity;
         var minPoint = null;
 

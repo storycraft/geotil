@@ -6,7 +6,7 @@ export default abstract class Primitive<T extends Point2D> {
 
     abstract get Area(): number;
 
-    abstract get BoundingBox(): Rectangle<T>;
+    abstract get BoundingBox(): Rectangle;
 
     abstract contains(point: T): boolean;
 }

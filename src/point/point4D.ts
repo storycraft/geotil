@@ -21,35 +21,39 @@ export default class Point4D extends Point3D {
         this.W = w;
     }
 
+    get PointSum() {
+        return this.x + this.y + this.z + this.w;
+    }
+
     squareDistanceTo(x = 0, y = 0, z = 0, w = 0){
         let distanceW = w - this.W;
 
         return super.squareDistanceTo(x, y, z) + Math.pow(distanceW, 2);
     }
 
-    distanceTo(x = 0, y = 0, z = 0, w = 0){
+    distanceTo(x = 0, y = x, z = y, w = z){
         return Math.sqrt(this.squareDistanceTo(x, y, z, w));
     }
 
-    add(x = 0, y = 0, z = 0, w = 0) {
+    add(x = 0, y = x, z = y, w = z) {
         this.w += w;
 
         return super.add(x, y, z);
     }
 
-    subtract(x = 0, y = 0, z = 0, w = 0){
+    subtract(x = 0, y = x, z = y, w = z){
          this.w -= w;
         
         return super.subtract(x, y, z);
     }
 
-    multiply(x = 1, y = 1, z = 1, w = 1){
+    multiply(x = 1, y = x, z = y, w = z){
         this.w *= w;
         
         return super.multiply(x, y, z);
     }
 
-    divide(x = 1, y = 1, z = 1, w = 1){
+    divide(x = 1, y = x, z = y, w = z){
         this.w /= w;
         
         return super.divide(x, y, z);
@@ -79,9 +83,13 @@ export default class Point4D extends Point3D {
         return this.squareDistanceTo(point.X, point.Y, point.Z, point.W);
     }
 
-    clone(target: Point4D = new Point4D()) {
+    createNew() {
+        return new Point4D();
+    }
+
+    clone(target: Point4D = this.createNew()) {
         target.w = this.w;
 
-        return super.clone(target);
+        return <Point4D> super.clone(target);
     }
 }

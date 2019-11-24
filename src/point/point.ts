@@ -16,6 +16,10 @@ export default class Point {
         this.x = x;
     }
 
+    get PointSum() {
+        return this.x;
+    }
+
     squareDistanceTo(x = 0) {
         let distanceX = x - this.X;
 
@@ -74,7 +78,11 @@ export default class Point {
         return this.squareDistanceTo(point.X);
     }
 
-    clone(target: Point = new Point()) {
+    createNew() {
+        return new Point();
+    }
+
+    clone(target: Point = this.createNew()) {
         target.x = this.x;
 
         return target;

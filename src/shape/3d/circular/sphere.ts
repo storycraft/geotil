@@ -3,10 +3,14 @@ import Point3D from "../../../point/point3D";
 import Box from "../box";
 import Point4D from "../../../point/point4D";
 
-export default class Sphere<T extends Point3D> extends Circle<T> {
+export default class Sphere extends Circle {
 
-    constructor(centerPoint: T, radius: number) {
+    constructor(centerPoint: Point3D, radius: number) {
         super(centerPoint, radius);
+    }
+    
+    get CenterPoint() {
+        return super.CenterPoint as Point3D;
     }
 
     get Volume() {
@@ -14,10 +18,10 @@ export default class Sphere<T extends Point3D> extends Circle<T> {
     }
 
     get BoundingBox() {
-        return new Box<T>(<T> <any> Point4D.copy(this.CenterPoint.subtract(super.Radius, super.Radius, super.Radius)), <T> <any> Point4D.copy(this.CenterPoint.add(super.Radius, super.Radius, super.Radius)));
+        return new Box(this.CenterPoint.clone().subtract(super.Radius), this.CenterPoint.clone().add(super.Radius));
     }
 
-    contains(point: T){
-        return this.CenterPoint.squareDistanceToPoint(point) <= super.Radius * super.Radius;
+    contains(point: Point3D) {
+        return this.CenterPoint.squareDistanceToPoint(point) <= Math.pow(super.Radius, 2);
     }
 }

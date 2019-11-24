@@ -3,12 +3,12 @@ import Triangle from "../../primitive/triangle";
 import Rectangle from "./rectangle";
 import Point2D from "../../point/point2D";
 
-export default class TriangleIsosceles<T extends Point2D> extends Primitive<T> {
+export default class TriangleIsosceles extends Primitive<Point2D> {
 
-    private location: T;
-    private size: T;
+    private location: Point2D;
+    private size: Point2D;
 
-    constructor(location: T, size: T){
+    constructor(location: Point2D, size: Point2D) {
         super();
 
         this.location = location;
@@ -31,7 +31,7 @@ export default class TriangleIsosceles<T extends Point2D> extends Primitive<T> {
         return new Rectangle(this.Location, this.Size);
     }
 
-    contains(point: T){
+    contains(point: Point2D) {
         return this.toTriangle().contains(point);
     }
 

@@ -2,10 +2,14 @@ import Sphere from "../../3d/circular/sphere";
 import Point4D from "../../../point/point4D";
 import Tesseract from "../tesseract";
 
-export default class HyperSphere<T extends Point4D> extends Sphere<T> {
+export default class HyperSphere extends Sphere {
 
-    constructor(centerPoint: T, radius: number) {
+    constructor(centerPoint: Point4D, radius: number) {
         super(centerPoint, radius);
+    }
+
+    get CenterPoint() {
+        return super.CenterPoint as Point4D;
     }
 
     get HyperVolume() {
@@ -13,10 +17,10 @@ export default class HyperSphere<T extends Point4D> extends Sphere<T> {
     }
     
     get BoundingBox() {
-        return new Tesseract<T>(<T> super.CenterPoint.subtract(super.Radius, super.Radius, super.Radius, super.Radius), <T> super.CenterPoint.add(super.Radius, super.Radius, super.Radius, super.Radius));
+        return new Tesseract(this.CenterPoint.clone().subtract(super.Radius), this.CenterPoint.clone().add(super.Radius));
     }
 
-    contains(point: T){
-        return super.CenterPoint.squareDistanceToPoint(point) <= super.Radius * super.Radius;
+    contains(point: Point4D) {
+        return super.CenterPoint.squareDistanceToPoint(point) <= Math.pow(super.Radius, 2);
     }
 }

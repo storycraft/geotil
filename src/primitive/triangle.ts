@@ -4,13 +4,13 @@ import Point2D from "../point/point2D";
 import Point from "../point/point";
 import Point4D from "../point/point4D";
 
-export default class Triangle<T extends Point2D> extends Primitive<T> {
+export default class Triangle extends Primitive<Point2D> {
 
-    private point1: T;
-    private point2: T;
-    private point3: T;
+    private point1: Point2D;
+    private point2: Point2D;
+    private point3: Point2D;
 
-    constructor(point1: T, point2: T, point3: T){
+    constructor(point1: Point2D, point2: Point2D, point3: Point2D) {
         super();
 
         this.point1 = point1;
@@ -47,14 +47,11 @@ export default class Triangle<T extends Point2D> extends Primitive<T> {
         let maxX = Math.max(Math.max(this.Point1.X, this.Point2.X), this.Point3.X);
         let maxY = Math.max(Math.max(this.Point1.Y, this.Point2.Y), this.Point3.Y);
 
-        return new Rectangle<T>(<T> <any> new Point4D(minX, minY), <T> <any> new Point4D(maxX - minX, maxY - minY));
+        return new Rectangle(new Point2D(minX, minY), new Point2D(maxX - minX, maxY - minY));
     }
 
-    contains<P extends Point>(point: P){
-        if (!(point instanceof Point2D))
-            point = <P> <any> new Point2D(point.X, 0);
-
-        let centerPoint: Point2D = <T> <any> point;
+    contains(point: Point2D) {
+        let centerPoint: Point2D = point;
 
         return Math.round(this.Area - (new Triangle(this.Point1, centerPoint, this.Point2).Area + new Triangle(this.Point2, centerPoint, this.Point3).Area + new Triangle(this.Point3, centerPoint, this.Point1).Area)) == 0;
     }

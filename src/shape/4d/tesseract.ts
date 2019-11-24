@@ -1,10 +1,18 @@
 import Box from "../3d/box";
 import Point4D from "../../point/point4D";
 
-export default class Tesseract<T extends Point4D> extends Box<T> {
+export default class Tesseract extends Box {
 
-    constructor(location: T, size: T) {
+    constructor(location: Point4D, size: Point4D) {
         super(location, size);
+    }
+
+    get Location() {
+        return super.Location as Point4D;
+    }
+
+    get Size() {
+        return super.Size as Point4D;
     }
 
     get HyperVolume(){
@@ -12,12 +20,12 @@ export default class Tesseract<T extends Point4D> extends Box<T> {
     }
 
     get BoundingBox() {
-        return new Box(this.Location, this.Size);
+        return new Tesseract(this.Location, this.Size);
     }
 
-    contains(point: T){
-        let location = Point4D.copy(this.Location);
-        let size = Point4D.copy(this.Size);
+    contains(point: Point4D){
+        let location = this.Location;
+        let size = this.Size;
 
         return super.contains(point) && point.W <= location.W + size.W && point.W >= location.W;
     }

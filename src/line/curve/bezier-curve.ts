@@ -66,17 +66,18 @@ export default class BezierCurve<T extends Point> extends LineCurve<T> {
         var n = this.PointLength - 1;
         var a = 1;
 
-        var point = new Point4D();
+        var point = this.PointList[0].createNew();
+
         for (var i = 0; i <= n; i++) {
             var o = a * Math.pow(progress, i) * Math.pow(1 - progress, n - i);
 
-            let targetPoint = Point4D.copy(this.PointList[i]);
+            let targetPoint = this.PointList[i].clone();
 
-            point = point.add(targetPoint.X * o, targetPoint.Y * o, targetPoint.Z * o, targetPoint.W * o);
+            point.addPoint(targetPoint.multiply(o));
 
             a *= (n - i) / (i + 1);
         }
 
-        return <T> <any> point;
+        return <T> point;
     }
 }

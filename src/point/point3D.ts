@@ -20,35 +20,39 @@ export default class Point3D extends Point2D {
         this.z = z;
     }
 
+    get PointSum() {
+        return this.x + this.y + this.z;
+    }
+
     squareDistanceTo(x = 0, y = 0, z = 0){
         let distanceZ = z - this.Z;
 
         return super.squareDistanceTo(x, y) + Math.pow(distanceZ, 2);
     }
 
-    distanceTo(x = 0, y = 0, z = 0){
+    distanceTo(x = 0, y = x, z = y){
         return Math.sqrt(this.squareDistanceTo(x, y, z));
     }
 
-    add(x = 0, y = 0, z = 0) {
+    add(x = 0, y = x, z = y) {
         this.z += z;
 
         return super.add(x, y);
     }
 
-    subtract(x = 0, y = 0, z = 0){
+    subtract(x = 0, y = x, z = y){
         this.z -= z;
 
         return super.subtract(x, y);
     }
 
-    multiply(x = 1, y = 1, z = 1){
+    multiply(x = 1, y = x, z = y){
         this.z *= z;
 
         return super.multiply(x, y);
     }
 
-    divide(x = 1, y = 1, z = 1){
+    divide(x = 1, y = x, z = y){
         this.z /= z;
 
         return super.divide(x, y);
@@ -78,9 +82,13 @@ export default class Point3D extends Point2D {
         return this.squareDistanceTo(point.X, point.Y, point.Z);
     }
 
-    clone(target: Point3D = new Point3D()) {
+    createNew() {
+        return new Point3D();
+    }
+
+    clone(target: Point3D = this.createNew()) {
         target.z = this.z;
 
-        return super.clone(target);
+        return <Point3D> super.clone(target);
     }
 }

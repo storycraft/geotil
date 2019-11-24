@@ -2,13 +2,12 @@ import HasRadius from "../../../primitive/circular/has-radius";
 import Point2D from "../../../point/point2D";
 import Rectangle from "../rectangle";
 import Circular from "../../../primitive/circular/circular";
-import Point4D from "../../../point/point4D";
 
-export default class Circle<T extends Point2D> extends Circular<T> implements HasRadius {
+export default class Circle extends Circular<Point2D> implements HasRadius {
 
     private radius: number;
 
-    constructor(centerPoint: T, radius: number) {
+    constructor(centerPoint: Point2D, radius: number) {
         super(centerPoint);
 
         this.radius = radius;
@@ -24,10 +23,10 @@ export default class Circle<T extends Point2D> extends Circular<T> implements Ha
 
     get BoundingBox() {
         var centerPoint = super.CenterPoint;
-        return new Rectangle<T>(<T> <any> Point4D.copy(centerPoint.subtract(this.Radius, this.Radius)), <T> <any> Point4D.copy(centerPoint.add(this.Radius, this.Radius)));
+        return new Rectangle(centerPoint.clone().subtract(this.Radius), centerPoint.clone().add(this.Radius));
     }
 
-    contains(point: T){
+    contains(point: Point2D){
         return super.CenterPoint.squareDistanceToPoint(point) <= this.Radius * this.Radius;
     }
 }

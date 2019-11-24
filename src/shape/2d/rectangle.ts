@@ -3,12 +3,12 @@ import Quad from "../../primitive/quad";
 import Point2D from "../../point/point2D";
 import Point from "../../point/point";
 
-export default class Rectangle<T extends Point2D> extends Primitive<T> {
+export default class Rectangle extends Primitive<Point2D> {
 
-    private location: T;
-    private size: T;
+    private location: Point2D;
+    private size: Point2D;
 
-    constructor(location: T, size: T){
+    constructor(location: Point2D, size: Point2D) {
         super();
 
         this.location = location;
@@ -31,19 +31,19 @@ export default class Rectangle<T extends Point2D> extends Primitive<T> {
         return new Rectangle(this.Location, this.Size);
     }
 
-    contains(point: T){
+    contains(point: Point2D) {
         let location = this.Location;
         let size = this.Size;
-        let targetPoint = <Point2D> <any> point;
+        let targetPoint = point;
 
         return targetPoint.X >= location.X && targetPoint.Y >= location.Y && targetPoint.X <= location.X + size.X && targetPoint.Y <= location.Y + size.Y;
     }
 
     toQuad(){
-        let point1 = this.Location;
-        let point2 = this.Location.add(this.Size.X, 0);
-        let point3 = this.Location.addPoint(this.Size);
-        let point4 = this.Location.add(0, this.Size.Y);
+        let point1 = this.Location.clone();
+        let point2 = this.Location.clone().add(this.Size.X, 0);
+        let point3 = this.Location.clone().addPoint(this.Size);
+        let point4 = this.Location.clone().add(0, this.Size.Y);
 
         return new Quad(point1, point2, point3, point4);
     }

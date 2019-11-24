@@ -33,15 +33,13 @@ export default class Line<T extends Point> extends LineAbstract<T> {
     }
 
     getClosestProgressFrom(point: Point) {
-        point = Point4D.copy(point);
-
-        let startToPoint = point.subtractPoint(this.StartPoint);
-        let startToEnd = this.EndPoint.subtractPoint(this.StartPoint);
+        let startToPoint = point.clone().subtractPoint(this.StartPoint);
+        let startToEnd = this.EndPoint.clone().subtractPoint(this.StartPoint);
         let squareLength = this.SquareLength;
 
-        let m = Point4D.copy(startToEnd.multiplyPoint(startToPoint));
+        let m = startToEnd.multiplyPoint(startToPoint);
 
-        return Math.max(Math.min((m.X + m.Y + m.Z + m.W) / squareLength, 1), 0);
+        return Math.max(Math.min(m.PointSum / squareLength, 1), 0);
     }
     
     getClosestPointFrom(point: T) {
@@ -49,11 +47,11 @@ export default class Line<T extends Point> extends LineAbstract<T> {
     }
 
     getPointAt(progress: number) {
-        let startPoint = Point4D.copy(this.StartPoint);
-        let endPoint = Point4D.copy(this.EndPoint);
+        let startPoint = this.StartPoint;
+        let endPoint = this.EndPoint;
 
-        let point = new Point4D(MathUtil.lerp(startPoint.X, endPoint.X, progress), MathUtil.lerp(startPoint.Y, endPoint.Y, progress), MathUtil.lerp(startPoint.Z, endPoint.Z, progress), MathUtil.lerp(startPoint.W, endPoint.W, progress));
+        let point = startPoint.clone().addPoint(endPoint.clone().subtractPoint(startPoint).multiply(progress));
 
-        return <T> <any> point;
+        return <T> point;
     }
 }
