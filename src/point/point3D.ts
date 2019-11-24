@@ -16,6 +16,10 @@ export default class Point3D extends Point2D {
         return this.z;
     }
 
+    set Z(z) {
+        this.z = z;
+    }
+
     squareDistanceTo(x = 0, y = 0, z = 0){
         let distanceZ = z - this.Z;
 
@@ -26,20 +30,28 @@ export default class Point3D extends Point2D {
         return Math.sqrt(this.squareDistanceTo(x, y, z));
     }
 
-    add(x = 0, y = 0, z = 0){
-        return new Point3D(this.X + x, this.Y + y, this.Z + z);
+    add(x = 0, y = 0, z = 0) {
+        this.z += z;
+
+        return super.add(x, y);
     }
 
     subtract(x = 0, y = 0, z = 0){
-        return new Point3D(this.X - x, this.Y - y, this.Z - z);
+        this.z -= z;
+
+        return super.subtract(x, y);
     }
 
     multiply(x = 1, y = 1, z = 1){
-        return new Point3D(this.X * x, this.Y * y, this.Z * z);
+        this.z *= z;
+
+        return super.multiply(x, y);
     }
 
     divide(x = 1, y = 1, z = 1){
-        return new Point3D(this.X / x, this.Y / y, this.Z / z);
+        this.z /= z;
+
+        return super.divide(x, y);
     }
 
     addPoint(point: Point3D){
@@ -66,7 +78,9 @@ export default class Point3D extends Point2D {
         return this.squareDistanceTo(point.X, point.Y, point.Z);
     }
 
-    static copy<T extends Point>(point: T){
-        return new Point3D(point.X, point instanceof Point2D ? point.Y : 0, point instanceof Point3D ? point.Y : 0);
+    clone(target: Point3D = new Point3D()) {
+        target.z = this.z;
+
+        return super.clone(target);
     }
 }

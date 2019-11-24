@@ -8,34 +8,46 @@ export default class Point {
         this.x = x || 0;
     }
 
-    get X(){
+    get X() {
         return this.x;
     }
 
-    squareDistanceTo(x = 0){
+    set X(x) {
+        this.x = x;
+    }
+
+    squareDistanceTo(x = 0) {
         let distanceX = x - this.X;
 
         return Math.pow(distanceX, 2);
     }
 
-    distanceTo(x = 0){
+    distanceTo(x = 0) {
         return this.X - x;
     }
 
-    add(x = 0){
-        return new Point(this.X + x);
+    add(x = 0) {
+        this.x += x;
+
+        return this;
     }
 
-    subtract(x = 0){
-        return new Point(this.X - x);
+    subtract(x = 0) {
+        this.x -= x;
+
+        return this;
     }
 
-    multiply(x = 1){
-        return new Point(this.X * x);
+    multiply(x = 1) {
+        this.x *= x;
+
+        return this;
     }
 
-    divide(x = 1){
-        return new Point(this.X / x);
+    divide(x = 1) {
+        this.x /= x;
+
+        return this;
     }
 
     addPoint(point: Point){
@@ -62,7 +74,9 @@ export default class Point {
         return this.squareDistanceTo(point.X);
     }
 
-    static copy<T extends Point>(point: T){
-        return new Point(point.X);
+    clone(target: Point = new Point()) {
+        target.x = this.x;
+
+        return target;
     }
 }

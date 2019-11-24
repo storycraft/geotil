@@ -25,20 +25,28 @@ export default class Point2D extends Point {
         return Math.sqrt(this.squareDistanceTo(x, y));
     }
 
-    add(x = 0, y = 0){
-        return new Point2D(this.X + x, this.Y + y);
+    add(x = 0, y = 0) {
+        this.y += y;
+
+        return super.add(x);
     }
 
     subtract(x = 0, y = 0){
-        return new Point2D(this.X - x, this.Y - y);
+        this.y -= y;
+
+        return super.subtract(x);
     }
 
     multiply(x = 1, y = 1){
-        return new Point2D(this.X * x, this.Y * y);
+        this.y *= y;
+
+        return super.multiply(x);
     }
 
     divide(x = 1, y = 1){
-        return new Point2D(this.X / x, this.Y / y);
+        this.y /= y;
+
+        return super.divide(x);
     }
 
     addPoint(point: Point2D){
@@ -65,7 +73,9 @@ export default class Point2D extends Point {
         return this.squareDistanceTo(point.X, point.Y);
     }
 
-    static copy<T extends Point>(point: T){
-        return new Point2D(point.X, point instanceof Point2D ? point.Y : 0);
+    clone(target: Point2D = new Point2D()) {
+        target.y = this.y;
+
+        return super.clone(target);
     }
 }
