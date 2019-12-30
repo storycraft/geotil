@@ -18,7 +18,7 @@ export default class Point4D extends Point3D {
     }
 
     set W(w) {
-        this.W = w;
+        this.w = w;
     }
 
     get PointSum() {
